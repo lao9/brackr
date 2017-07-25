@@ -8,7 +8,8 @@ class Loader
       coordinates = raw_coordinate.children.text.split(",")
       lat = coordinates[0].to_f
       long = coordinates[1].to_f
-      puts "Latitude: #{lat}, Longitude: #{long}"
+      Brack.create(lat: lat, long: long)
+      puts "Brack ##{Brack.last.id} created, with latitude of #{Brack.last.lat} and longitude of #{Brack.last.long}"
     end
   end
 end
