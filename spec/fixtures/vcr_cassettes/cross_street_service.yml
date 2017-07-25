@@ -1,0 +1,623 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCtaYikeM-Ghvnn7EUdUXTakZxmnyXpJdY&latlng=39.749598000000006,-105.0004297
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.11.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Tue, 25 Jul 2017 20:26:58 GMT
+      Expires:
+      - Wed, 26 Jul 2017 20:26:58 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Vary:
+      - Accept-Language
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      Content-Length:
+      - '1611'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="39,38,37,36,35"
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "1501",
+                       "short_name" : "1501",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Blake Street",
+                       "short_name" : "Blake St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "LoDo",
+                       "short_name" : "LoDo",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver",
+                       "short_name" : "Denver",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver County",
+                       "short_name" : "Denver County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Colorado",
+                       "short_name" : "CO",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "80202",
+                       "short_name" : "80202",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "1501 Blake St, Denver, CO 80202, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 39.7496425,
+                          "lng" : -105.000349
+                       },
+                       "southwest" : {
+                          "lat" : 39.7494344,
+                          "lng" : -105.0006251
+                       }
+                    },
+                    "location" : {
+                       "lat" : 39.7496,
+                       "lng" : -105.0004322
+                    },
+                    "location_type" : "RANGE_INTERPOLATED",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 39.75088743029151,
+                          "lng" : -104.9991380697085
+                       },
+                       "southwest" : {
+                          "lat" : 39.74818946970851,
+                          "lng" : -105.0018360302915
+                       }
+                    }
+                 },
+                 "place_id" : "EiQxNTAxIEJsYWtlIFN0LCBEZW52ZXIsIENPIDgwMjAyLCBVU0E",
+                 "types" : [ "street_address" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "15th St & Blake St",
+                       "short_name" : "15th St & Blake St",
+                       "types" : [
+                          "bus_station",
+                          "establishment",
+                          "point_of_interest",
+                          "transit_station"
+                       ]
+                    },
+                    {
+                       "long_name" : "LoDo",
+                       "short_name" : "LoDo",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver",
+                       "short_name" : "Denver",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver County",
+                       "short_name" : "Denver County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Colorado",
+                       "short_name" : "CO",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "80202",
+                       "short_name" : "80202",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "15th St & Blake St, Denver, CO 80202, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 39.749937,
+                       "lng" : -105.000624
+                    },
+                    "location_type" : "GEOMETRIC_CENTER",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 39.75128598029149,
+                          "lng" : -104.9992750197085
+                       },
+                       "southwest" : {
+                          "lat" : 39.74858801970849,
+                          "lng" : -105.0019729802915
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJy4H5W8R4bIcRcOOgk7i_PiQ",
+                 "types" : [
+                    "bus_station",
+                    "establishment",
+                    "point_of_interest",
+                    "transit_station"
+                 ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "LoDo",
+                       "short_name" : "LoDo",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver",
+                       "short_name" : "Denver",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver County",
+                       "short_name" : "Denver County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Colorado",
+                       "short_name" : "CO",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "80202",
+                       "short_name" : "80202",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "LoDo, Denver, CO 80202, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 39.7603811,
+                          "lng" : -104.9918405
+                       },
+                       "southwest" : {
+                          "lat" : 39.745886,
+                          "lng" : -105.0081367
+                       }
+                    },
+                    "location" : {
+                       "lat" : 39.7526509,
+                       "lng" : -105.001685
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 39.7603811,
+                          "lng" : -104.9918405
+                       },
+                       "southwest" : {
+                          "lat" : 39.745886,
+                          "lng" : -105.0081367
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJux94CcN4bIcRcH7lFkSAUfo",
+                 "types" : [ "neighborhood", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Central",
+                       "short_name" : "Central",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver",
+                       "short_name" : "Denver",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver County",
+                       "short_name" : "Denver County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Colorado",
+                       "short_name" : "CO",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Central, Denver, CO, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 39.7603811,
+                          "lng" : -104.940634
+                       },
+                       "southwest" : {
+                          "lat" : 39.6969869,
+                          "lng" : -105.0181369
+                       }
+                    },
+                    "location" : {
+                       "lat" : 39.7340952,
+                       "lng" : -104.9713695
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 39.7603811,
+                          "lng" : -104.940634
+                       },
+                       "southwest" : {
+                          "lat" : 39.6969869,
+                          "lng" : -105.0181369
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJ8UxaWjZ_bIcRslJSzsQj-sI",
+                 "types" : [ "neighborhood", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Denver",
+                       "short_name" : "Denver",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver County",
+                       "short_name" : "Denver County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Colorado",
+                       "short_name" : "CO",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Denver, CO, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 39.91424689999999,
+                          "lng" : -104.6002959
+                       },
+                       "southwest" : {
+                          "lat" : 39.614431,
+                          "lng" : -105.109927
+                       }
+                    },
+                    "location" : {
+                       "lat" : 39.7392358,
+                       "lng" : -104.990251
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 39.91424689999999,
+                          "lng" : -104.6002959
+                       },
+                       "southwest" : {
+                          "lat" : 39.614431,
+                          "lng" : -105.109927
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJzxcfI6qAa4cR1jaKJ_j0jhE",
+                 "types" : [ "locality", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "80202",
+                       "short_name" : "80202",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "Denver",
+                       "short_name" : "Denver",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver County",
+                       "short_name" : "Denver County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Colorado",
+                       "short_name" : "CO",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Denver, CO 80202, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 39.76666780000001,
+                          "lng" : -104.986105
+                       },
+                       "southwest" : {
+                          "lat" : 39.736849,
+                          "lng" : -105.012165
+                       }
+                    },
+                    "location" : {
+                       "lat" : 39.7541032,
+                       "lng" : -105.0002242
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 39.76666780000001,
+                          "lng" : -104.986105
+                       },
+                       "southwest" : {
+                          "lat" : 39.736849,
+                          "lng" : -105.012165
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJwTF6RcN4bIcRWd8aCrbRvX0",
+                 "types" : [ "postal_code" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Denver County",
+                       "short_name" : "Denver County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Colorado",
+                       "short_name" : "CO",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Denver County, CO, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 39.91424689999999,
+                          "lng" : -104.6002959
+                       },
+                       "southwest" : {
+                          "lat" : 39.614431,
+                          "lng" : -105.109927
+                       }
+                    },
+                    "location" : {
+                       "lat" : 39.76161889999999,
+                       "lng" : -104.9622498
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 39.91424689999999,
+                          "lng" : -104.6002959
+                       },
+                       "southwest" : {
+                          "lat" : 39.614431,
+                          "lng" : -105.109927
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJzWww5uJfbIcRBvfuO6cAtKY",
+                 "types" : [ "administrative_area_level_2", "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Denver Metropolitan Area",
+                       "short_name" : "Denver Metropolitan Area",
+                       "types" : [ "political" ]
+                    },
+                    {
+                       "long_name" : "Colorado",
+                       "short_name" : "CO",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Denver Metropolitan Area, CO, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 40.044227,
+                          "lng" : -103.705695
+                       },
+                       "southwest" : {
+                          "lat" : 38.693089,
+                          "lng" : -106.210173
+                       }
+                    },
+                    "location" : {
+                       "lat" : 39.5142848,
+                       "lng" : -104.8454619
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.044227,
+                          "lng" : -103.705695
+                       },
+                       "southwest" : {
+                          "lat" : 38.693089,
+                          "lng" : -106.210173
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJmdjjStKbbIcR5MH987eFdeA",
+                 "types" : [ "political" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Colorado",
+                       "short_name" : "CO",
+                       "types" : [
+                          "administrative_area_level_1",
+                          "establishment",
+                          "point_of_interest",
+                          "political"
+                       ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "Colorado, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 41.0034439,
+                          "lng" : -102.040878
+                       },
+                       "southwest" : {
+                          "lat" : 36.992424,
+                          "lng" : -109.060256
+                       }
+                    },
+                    "location" : {
+                       "lat" : 39.5500507,
+                       "lng" : -105.7820674
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 41.0034439,
+                          "lng" : -102.040878
+                       },
+                       "southwest" : {
+                          "lat" : 36.992424,
+                          "lng" : -109.060256
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJt1YYm3QUQIcR_6eQSTGDVMc",
+                 "types" : [
+                    "administrative_area_level_1",
+                    "establishment",
+                    "point_of_interest",
+                    "political"
+                 ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "United States",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 71.5388001,
+                          "lng" : -66.885417
+                       },
+                       "southwest" : {
+                          "lat" : 18.7763,
+                          "lng" : 170.5957
+                       }
+                    },
+                    "location" : {
+                       "lat" : 37.09024,
+                       "lng" : -95.712891
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 49.38,
+                          "lng" : -66.94
+                       },
+                       "southwest" : {
+                          "lat" : 25.82,
+                          "lng" : -124.39
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
+                 "types" : [ "country", "political" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Tue, 25 Jul 2017 20:26:59 GMT
+recorded_with: VCR 3.0.3
