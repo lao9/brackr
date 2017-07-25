@@ -6,10 +6,11 @@ class Loader
 
     @doc.css("//coordinates").each do |raw_coordinate|
       coordinates = raw_coordinate.children.text.split(",")
-      lat = coordinates[0].to_f
-      long = coordinates[1].to_f
-      Brack.create(lat: lat, long: long)
-      puts "Brack ##{Brack.last.id} created, with latitude of #{Brack.last.lat} and longitude of #{Brack.last.long}"
+      long = coordinates[0].to_f
+      lat = coordinates[1].to_f
+      cross_streets = CrossStreetService.find_by_coordinates({lat: lat, long: long})
+      Brack.create(lat: lat, long: long, cross_streets: cross_streets, owner: "City of Denver")
+      puts "Brack ##{Brack.last.id} located at #{Brack.last.cross_streets} created, with latitude of #{Brack.last.lat} and longitude of #{Brack.last.long}"
     end
   end
 end
