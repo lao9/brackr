@@ -19,7 +19,7 @@
       center: uluru
     });
 
-    $.getJSON('http://localhost:3000/api/v1/bracks', function(data){
+    $.getJSON('https://nameless-springs-66743.herokuapp.com/api/v1/bracks', function(data){
       for (var i = 0; i < data.length; i++) {
         var lat = data[i].lat
         var long = data[i].long
