@@ -4,7 +4,7 @@ class CrossStreetService
     @conn = Faraday.new("https://maps.googleapis.com")
     @search_params = {
       latlng: "#{coordinates[:lat]},#{coordinates[:long]}",
-      key: ENV['GOOGLE_MAP_KEY']
+      key: ENV['GOOGLE_GEOCODE_KEY']
     }
   end
 

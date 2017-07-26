@@ -1,24 +1,33 @@
-# README
+# Brackr
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Brackr allows users to find a bike rack near them using Denver city data, navigate to those bike rack by using their current location, while also allowing citizens of Denver to crowd source the locations of new bike racks and comment or report bike rack issues to make commuting and locking up bikes safer and easier.
 
-Things you may want to cover:
+## Installation Instructions
 
-* Ruby version
+## Neat Gems
 
-* System dependencies
+Used `gem 'geokit'` to calculate the distances between the search location and each bike rack.
 
-* Configuration
+## API Services Used
 
-* Database creation
+Google Maps APIs:
 
-* Database initialization
+* Geocoding API: https://developers.google.com/maps/documentation/geocoding/intro
 
-* How to run the test suite
+* Maps Javascript API: https://developers.google.com/maps/documentation/javascript/earthquakes#placing_basic_markers
 
-* Services (job queues, cache servers, search engines, etc.)
+## Project Internal API Endpoints
 
-* Deployment instructions
 
-* ...
+When a user makes a get request to api/v1/racks, we get a list of all rack objects
+We'd typically expect a parameter of lat and long:
+api/v1/racks?lat=[]&long=[]
+This returns JSON of all racks, sorted by distance from the lat and long params.
+Default limit is 20, but if a limit params is added, then it can be adjusted.
+api/v1/racks?lat=[]&long=[]&limit=15
+OR
+api/v1/racks?limit=15
+
+
+
+## Contact Information
