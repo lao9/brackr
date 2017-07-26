@@ -3,15 +3,16 @@ require 'rails_helper'
 describe "Bracks API" do
   attr_reader :first_closest, :first_furthest, :second_closest, :second_furthest
   before :all do
-    40.times { |n| Brack.create(lat: latitudes[n],
-                                long: longitudes[n],
-                                cross_streets: cross_streets[n],
-                                owner: "City of Denver")
-              }
-    @first_closest = Brack.find(26)
-    @first_furthest = Brack.find(27)
-    @second_closest = Brack.find(36)
-    @second_furthest = Brack.find(22)
+    40.times do |n|
+      Brack.create(lat: latitudes[n],
+                   long: longitudes[n],
+                   cross_streets: cross_streets[n],
+                   owner: "City of Denver")
+    end
+    @first_closest = Brack.sort_by_distance("39.749598000000006,-105.0004297")[0]
+    @first_furthest = Brack.sort_by_distance("39.749598000000006,-105.0004297")[-1]
+    @second_closest = Brack.sort_by_distance("39.756586,-104.981311")[0]
+    @second_furthest = Brack.sort_by_distance("39.756586,-104.981311")[-1]
   end
   context "no params are passed" do
     it "returns JSON of 20 racks sorted by distance from Turing School" do
@@ -38,7 +39,6 @@ describe "Bracks API" do
   end
   context "lat and long params are passed" do
     it "returns JSON of 20 racks sorted by distance from given location" do
-
       get '/api/v1/bracks', params: {latlng: "39.756586,-104.981311"}
 
       bracks = JSON.parse(response.body, symbolize_names: true)

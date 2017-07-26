@@ -21,6 +21,7 @@ gem 'faraday'
 gem 'figaro'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'geokit'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   gem 'capybara'

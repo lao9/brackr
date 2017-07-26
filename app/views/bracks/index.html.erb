@@ -1,0 +1,38 @@
+<div class="map-box">
+  <div class="search">
+    <%= form_tag :bracks,  method: :get do %>
+        <%= text_field_tag :q, "Find nearest bike rack...", class: 'form-control' %>
+    <% end %>
+  </div>
+  <hr>
+  <div id="map">
+
+  </div>
+</div>
+
+
+<script>
+  function initMap() {
+    var uluru = {lat: 39.749598000000006, lng: -105.0004297}
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 18,
+      center: uluru
+    });
+
+    $.getJSON('http://localhost:3000/api/v1/bracks', function(data){
+      for (var i = 0; i < data.length; i++) {
+        var lat = data[i].lat
+        var long = data[i].long
+        var latLng = new google.maps.LatLng(lat, long);
+        var marker = new google.maps.Marker({
+          position: latLng,
+          map: map
+        })
+      }
+    })
+  }
+
+</script>
+<script async defer
+  src=<%="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_KEY']}&callback=initMap"%>>
+</script>
