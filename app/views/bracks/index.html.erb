@@ -10,7 +10,6 @@
   </div>
 </div>
 
-
 <script>
   function initMap() {
     var uluru = {lat: 39.749598000000006, lng: -105.0004297}
@@ -19,7 +18,7 @@
       center: uluru
     });
 
-    $.getJSON('https://nameless-springs-66743.herokuapp.com/api/v1/bracks', function(data){
+    $.getJSON("<%="#{ENV['HOST_DOMAIN']}/api/v1/bracks"%>", function(data){
       for (var i = 0; i < data.length; i++) {
         var lat = data[i].lat
         var long = data[i].long
