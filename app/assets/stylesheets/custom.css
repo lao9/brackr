@@ -34,3 +34,7 @@ body {
   font-size: 150%;
   border-top: 2px solid black;
 }
+
+.racks-show {
+  display: none;
+}

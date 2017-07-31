@@ -67,5 +67,8 @@ function drawMap(coords) {
       })
       addRackToIndex(data[i].id, data[i].distance)
     }
+  }).then(function(){
+    console.log("I'm done!")
+    // $(".racks-show").hide()
   })
 }
