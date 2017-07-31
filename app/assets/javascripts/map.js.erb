@@ -1,3 +1,7 @@
+// define global map variables
+var map;
+var infoWindows = [];
+
 $(document).ready(function(){
 
   $(".container:nth-child(2)").prepend(
@@ -40,7 +44,7 @@ function addRackToIndex(rackId, distance) {
 function drawMap(coords) {
   var latLngParams = `${coords.latitude},${coords.longitude}`
   var uluru = {lat: coords.latitude, lng: coords.longitude}
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     zoom: 18,
     center: uluru
   });
@@ -59,12 +63,34 @@ function drawMap(coords) {
     for (var i = 0; i < data.length; i++) {
       var lat = data[i].lat
       var long = data[i].long
+      var id = data[i].id
       var latLng = new google.maps.LatLng(lat, long);
       var marker = new google.maps.Marker({
         position: latLng,
         map: map,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
+        markerId: id
       })
+
+      marker.addListener('click', function() {
+        // debugger
+        // console.log(this.markerId)
+        // var clickedMarker = $(this)
+        closeAllInfoWindows();
+
+        var newCenter = this.getPosition();
+        map.panTo(newCenter);
+        var contentString = `<div>SOME STUFF!</div>`
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        })
+        //
+        infoWindows.push(infowindow);
+        //
+        infowindow.open(map, this)
+      });
+
+
       addRackToIndex(data[i].id, data[i].distance)
     }
   }).then(function(){
