@@ -59,13 +59,13 @@ function drawMap(coords) {
     animation: google.maps.Animation.DROP,
     icon: image
   })
-  $.getJSON("https://brackr.herokuapp.com/api/v1/bracks", {latlng: latLngParams}, function(data){
+  $.getJSON("http://localhost:3000/api/v1/bracks", {latlng: latLngParams}, function(data){
     for (var i = 0; i < data.length; i++) {
       var lat = data[i].lat
       var long = data[i].long
       var id = data[i].id
       var cross_streets = data[i].cross_streets
-      var distance = data[i].distance
+      var distance = Number(data[i].distance).toFixed(2)
       var owner = data[i].owner
 
       var latLng = new google.maps.LatLng(lat, long);
@@ -73,32 +73,30 @@ function drawMap(coords) {
         position: latLng,
         map: map,
         animation: google.maps.Animation.DROP,
-        markerId: id
+        markerId: id,
+        cross_streets: cross_streets,
+        distance: distance,
+        owner: owner
       })
 
       marker.addListener('click', function() {
-        // debugger
-        // console.log(this.markerId)
-        // var clickedMarker = $(this)
         closeAllInfoWindows();
-
         var newCenter = this.getPosition();
         map.panTo(newCenter);
-        var contentString = `<div>SOME STUFF!</div>`
+        var contentString = `<div>
+                                <h4><%= image_tag("b-icon.png", alt: "bike icon", width:30) %> ${this.distance} miles away</h4>
+                                <p>${this.cross_streets}<p>
+                                <p>Owner: ${this.owner}<p>
+                             </div>`
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         })
-        //
         infoWindows.push(infowindow);
-        //
         infowindow.open(map, this)
       });
 
 
       addRackToIndex(data[i].id, data[i].distance)
     }
-  }).then(function(){
-    console.log("I'm done!")
-    // $(".racks-show").hide()
   })
 }

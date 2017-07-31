@@ -1,8 +1,6 @@
 
-
 $(document).ready(function(){
   expandRackOptions()
-
 })
 
 function toggleRackIndex(){
