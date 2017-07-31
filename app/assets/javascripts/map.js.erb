@@ -45,7 +45,7 @@ function drawMap(coords) {
     animation: google.maps.Animation.DROP,
     icon: image
   })
-  $.getJSON("<%="#{ENV['HOST_DOMAIN']}/api/v1/bracks"%>", {latlng: latLngParams}, function(data){
+  $.getJSON("https://brackr.herokuapp.com/api/v1/bracks", {latlng: latLngParams}, function(data){
     for (var i = 0; i < data.length; i++) {
       var lat = data[i].lat
       var long = data[i].long
