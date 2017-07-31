@@ -29,6 +29,7 @@ describe "Bracks API" do
       expect(first_brack).to have_key(:lat)
       expect(first_brack).to have_key(:long)
       expect(first_brack).to have_key(:distance)
+      expect(first_brack).to have_key(:cross_streets)
 
       expect(first_brack[:id]).to eq(closest.id)
       expect(last_brack[:id]).to eq(furthest.id)
@@ -55,6 +56,7 @@ describe "Bracks API" do
       expect(first_brack).to have_key(:lat)
       expect(first_brack).to have_key(:long)
       expect(first_brack).to have_key(:distance)
+      expect(first_brack).to have_key(:cross_streets)
 
       expect(first_brack[:id]).to eq(closest.id)
       expect(last_brack[:id]).to eq(furthest.id)
