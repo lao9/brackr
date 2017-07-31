@@ -15,3 +15,22 @@ body {
   padding: 10px;
   background-color: #d9d9d9;
 }
+
+.racks-index {
+  background-color: #eeeeee;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+}
+
+.nearest-rack-header {
+  padding-bottom: 5px;
+}
+
+.rack {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 150%;
+  border-top: 2px solid black;
+}
