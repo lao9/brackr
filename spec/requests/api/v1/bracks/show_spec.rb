@@ -16,6 +16,7 @@ describe "Single Brack Show API" do
       expect(raw_brack).to have_key(:lat)
       expect(raw_brack).to have_key(:long)
       expect(raw_brack).to have_key(:distance)
+      expect(raw_brack).to have_key(:cross_streets)
 
       expect(raw_brack[:id]).to eq(brack.id)
       expect(raw_brack[:distance]).to eq(0.00)
@@ -35,6 +36,7 @@ describe "Single Brack Show API" do
       expect(raw_brack).to have_key(:lat)
       expect(raw_brack).to have_key(:long)
       expect(raw_brack).to have_key(:distance)
+      expect(raw_brack).to have_key(:cross_streets)
 
       expect(raw_brack[:id]).to eq(brack.id)
       expect(raw_brack[:distance]).to eq(1.1257645516785693)
