@@ -64,6 +64,10 @@ function drawMap(coords) {
       var lat = data[i].lat
       var long = data[i].long
       var id = data[i].id
+      var cross_streets = data[i].cross_streets
+      var distance = data[i].distance
+      var owner = data[i].owner
+
       var latLng = new google.maps.LatLng(lat, long);
       var marker = new google.maps.Marker({
         position: latLng,
