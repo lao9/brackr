@@ -38,3 +38,9 @@ body {
 .racks-show {
   display: none;
 }
+
+.nearest-racks {
+  height: 120px;
+  overflow: scroll;
+  overflow-x: hidden;
+}

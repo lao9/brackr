@@ -10,13 +10,13 @@ function expandRackOptions() {
       $('.racks-show').slideToggle(1000)
       $('.racks-hide').slideToggle(1000)
       $("#map").animate({
-        height: "-=200",
+        height: "-=120",
       }, 1000)
     } else {
       $('.racks-hide').slideToggle(1000)
       $('.racks-show').slideToggle(1000)
       $("#map").animate({
-        height: "+=200"
+        height: "+=120"
       }, 1000)
     }
   })
