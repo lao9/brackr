@@ -27,6 +27,16 @@ function showPosition(position) {
   drawMap(position.coords)
 }
 
+function addRackToIndex(rackId, distance) {
+  var formatDistance = Number(distance).toFixed(2)
+  $('.nearest-racks').append(`
+    <div tabindex="0" class="rack" data-id=${rackId}>
+      <%= image_tag("b-icon.png", alt: "bike icon", width:40) %>
+      ${formatDistance} miles away
+    </div>
+  `)
+}
+
 function drawMap(coords) {
   var latLngParams = `${coords.latitude},${coords.longitude}`
   var uluru = {lat: coords.latitude, lng: coords.longitude}
@@ -55,7 +65,7 @@ function drawMap(coords) {
         map: map,
         animation: google.maps.Animation.DROP
       })
-      debugger
+      addRackToIndex(data[i].id, data[i].distance)
     }
   })
 }
