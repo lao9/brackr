@@ -35,36 +35,21 @@ function closeAllInfoWindows() {
     infoWindows = [];
 }
 
-function refocusMap(brackId) {
-  console.log(`Brack ID ${brackId}`)
-
+function addRackInfoWindow(brackMarker) {
   closeAllInfoWindows()
-
-  $.getJSON(`http://localhost:3000/api/v1/bracks/${brackId}`, function(data){
-
-    var center = new google.maps.LatLng(data.lat, data.long);
-    map.panTo(center);
-
-    var contentString = `<div>SOME STUFF!</div>`
-
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    })
-
-    infoWindows.push(infowindow);
-
-    var marker = new google.maps.Marker({
-      position: center,
-      map: map,
-      title: "Rack #1"
-    });
-
-
-    infowindow.open(map, marker)
-
-    // add a listener too
-
-  }).then(function(){
-    console.log("You got got.")
+  var newBrack = new Brack(brackMarker)
+  map.panTo(newBrack.latLng);
+  var contentString = newBrack.contentString();
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
   })
+  infoWindows.push(infowindow);
+  infowindow.open(map, brackMarker)
+}
+
+function refocusMap(brackId) {
+  var origMarker = brackMarkers.filter(function(v){
+    return v["markerId"] == brackId;
+  })[0]
+  addRackInfoWindow(origMarker)
 }
