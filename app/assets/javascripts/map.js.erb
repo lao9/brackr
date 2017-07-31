@@ -1,0 +1,61 @@
+$(document).ready(function(){
+
+  $(".container:nth-child(2)").prepend(
+    `<div class='alert alert-warning'>
+    <button type='button' class='close' data-dismiss='alert'>x</button>
+    Waiting to obtain your location...
+    </div>
+    `)
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    $(".alert").removeClass("alert-warning")
+    $(".alert").addClass("alert-danger")
+    $(".alert").html('<button type="button" class="close" data-dismiss="alert">x</button>\nSuccess!')
+    console.log("Geolocation is not supported by this browser.")
+    drawMap({latitude: 39.749598000000006, longitude: -105.0004297})
+  }
+
+})
+
+function showPosition(position) {
+  $(".alert").removeClass("alert-warning")
+  $(".alert").addClass("alert-success")
+  $(".alert").html('<button type="button" class="close" data-dismiss="alert">x</button>\nSuccess!')
+  console.log("Latitude: " + position.coords.latitude + "\nLongitude: " + position.coords.longitude)
+  drawMap(position.coords)
+}
+
+function drawMap(coords) {
+  var latLngParams = `${coords.latitude},${coords.longitude}`
+  var uluru = {lat: coords.latitude, lng: coords.longitude}
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 18,
+    center: uluru
+  });
+
+  var image = {
+    url: 'https://mississippistateparks.reserveamerica.com/images/maps/mm_20_chosen.png',
+  }
+  var userLatLng = new google.maps.LatLng(uluru.lat, uluru.lng);
+  var userMarker = new google.maps.Marker({
+    position: userLatLng,
+    map: map,
+    animation: google.maps.Animation.DROP,
+    icon: image
+  })
+  $.getJSON("<%="#{ENV['HOST_DOMAIN']}/api/v1/bracks"%>", {latlng: latLngParams}, function(data){
+    for (var i = 0; i < data.length; i++) {
+      var lat = data[i].lat
+      var long = data[i].long
+      var latLng = new google.maps.LatLng(lat, long);
+      var marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+        animation: google.maps.Animation.DROP
+      })
+
+    }
+  })
+}
