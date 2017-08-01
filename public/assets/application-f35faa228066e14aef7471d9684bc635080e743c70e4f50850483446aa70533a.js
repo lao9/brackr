@@ -13927,6 +13927,21 @@ return t.dispatch("turbolinks:before-render",{data:{newBody:e}})},r.prototype.no
 
 
 
+function Brack(rawBrack) {
+  this.latLng = rawBrack.getPosition();
+  this.distance = Number(rawBrack.distance).toFixed(2)
+  this.cross_streets = rawBrack.cross_streets
+  this.owner = rawBrack.owner
+}
+
+Brack.prototype.contentString = function() {
+  return `<div>
+    <h4><img alt="bike icon" width="30" src="/assets/b-icon-7f9780781c9d08b1b924f1036e54c13fb38c190fbf27dd58a55e502d699481be.png" /> ${this.distance} miles away</h4>
+    <p>${this.cross_streets}<p>
+    <p>Owner: ${this.owner}<p>
+ </div>`
+}
+;
 (function() {
   (function() {
     (function() {
@@ -14537,66 +14552,182 @@ return t.dispatch("turbolinks:before-render",{data:{newBody:e}})},r.prototype.no
   App.cable = ActionCable.createConsumer();
 
 }).call(this);
-$(document).ready(function(){
+function geolocator() {
+  addWaitingMessage()
+  grabUserLocation()
+}
 
+function addWaitingMessage() {
   $(".container:nth-child(2)").prepend(
     `<div class='alert alert-warning'>
     <button type='button' class='close' data-dismiss='alert'>x</button>
     Waiting to obtain your location...
     </div>
     `)
+}
 
+function grabUserLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else {
-    $(".alert").removeClass("alert-warning")
-    $(".alert").addClass("alert-danger")
-    $(".alert").html('<button type="button" class="close" data-dismiss="alert">x</button>\nSuccess!')
-    console.log("Geolocation is not supported by this browser.")
-    drawMap({latitude: 39.749598000000006, longitude: -105.0004297})
+    failureMessage();
   }
+}
 
-})
+function failureMessage() {
+  $(".alert").removeClass("alert-warning")
+  $(".alert").addClass("alert-danger")
+  var errorMessage = "Geolocation is not supported by this browser."
+  $(".alert").html(`<button type="button" class="close" data-dismiss="alert">x</button>\n${errorMessage}`)
+  BrackMap.drawMap({latitude: 39.749598000000006, longitude: -105.0004297})
+}
 
 function showPosition(position) {
   $(".alert").removeClass("alert-warning")
   $(".alert").addClass("alert-success")
   $(".alert").html('<button type="button" class="close" data-dismiss="alert">x</button>\nSuccess!')
-  console.log("Latitude: " + position.coords.latitude + "\nLongitude: " + position.coords.longitude)
-  drawMap(position.coords)
+  BrackMap.drawMap(position.coords)
 }
+;
+// define global map variables
+var map;
+var infoWindows = [];
+var brackMarkers = [];
 
-function drawMap(coords) {
-  var latLngParams = `${coords.latitude},${coords.longitude}`
-  var uluru = {lat: coords.latitude, lng: coords.longitude}
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 18,
-    center: uluru
-  });
-
-  var image = {
+$(document).ready(function(){
+  geolocator()
+  expandRackOptions()
+})
+;
+function BrackMap(coords) {
+  this.lat = coords.latitude
+  this.lng = coords.longitude
+  this.latLng = `${coords.latitude},${coords.longitude}`
+  this.center = {lat: coords.latitude, lng: coords.longitude}
+  this.image = {
     url: 'https://mississippistateparks.reserveamerica.com/images/maps/mm_20_chosen.png',
   }
-  var userLatLng = new google.maps.LatLng(uluru.lat, uluru.lng);
+}
+
+BrackMap.drawMap = function(coords) {
+  // setup map instance variables
+  brackMap = new BrackMap(coords)
+  // add map area and center
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 18,
+    center: brackMap.center
+  });
+  // add users current location and marker
+  var userLatLng = new google.maps.LatLng(brackMap.lat, brackMap.lng);
   var userMarker = new google.maps.Marker({
     position: userLatLng,
     map: map,
     animation: google.maps.Animation.DROP,
-    icon: image
+    icon: brackMap.image
   })
-  $.getJSON("https://brackr.herokuapp.com/api/v1/bracks", {latlng: latLngParams}, function(data){
+  // add markers for bike rack's near user center
+  addMarkers(brackMap.latLng)
+}
+
+function addMarkers(latLng) {
+  // get request to brack index api
+  $.getJSON("https://brackr.herokuapp.com/api/v1/bracks", {latlng: latLng}, function(data){
+    // for each bike rack...
     for (var i = 0; i < data.length; i++) {
+      // save attributes for the marker
+      // unfortunately we need to pull it out first like this
       var lat = data[i].lat
       var long = data[i].long
+      var id = data[i].id
+      var cross_streets = data[i].cross_streets
+      var distance = data[i].distance
+      var owner = data[i].owner
+
+      // add marker for bike rack to the map
       var latLng = new google.maps.LatLng(lat, long);
       var marker = new google.maps.Marker({
         position: latLng,
         map: map,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
+        markerId: id,
+        cross_streets: cross_streets,
+        distance: distance,
+        owner: owner
       })
 
+      // save markers to global collection for later access
+      brackMarkers.push(marker)
+
+      // add listener to marker if clicked
+      marker.addListener('click', function() {
+        addRackInfoWindow(this)
+      });
+
+      // add rack to nearest rack index
+      addRackToIndex(data[i].id, data[i].distance)
     }
   })
+}
+;
+function expandRackOptions() {
+  $('.racks-index').on('click', function(event){
+    if ($(event.target).hasClass("rack")) {
+      var brackId = $(event.target).data("id")
+      refocusMap(brackId)
+    }
+    else if ($(this).hasClass("racks-hide")) {
+      toggleRackIndex()
+      $("#map").animate({
+        height: "-=120",
+      }, 700)
+    } else {
+      toggleRackIndex()
+      $("#map").animate({
+        height: "+=120"
+      }, 700)
+    }
+  })
+}
+
+function addRackToIndex(rackId, distance) {
+  var formatDistance = Number(distance).toFixed(2)
+  $('.nearest-racks').append(`
+    <div tabindex="0" class="rack" data-id=${rackId}>
+      <img alt="bike icon" width="40" src="/assets/b-icon-7f9780781c9d08b1b924f1036e54c13fb38c190fbf27dd58a55e502d699481be.png" />
+      ${formatDistance} miles away
+    </div>
+  `)
+}
+
+function toggleRackIndex(){
+  $('.racks-show').slideToggle(700)
+  $('.racks-hide').slideToggle(700)
+}
+
+function refocusMap(brackId) {
+  var origMarker = brackMarkers.filter(function(v){
+    return v["markerId"] == brackId;
+  })[0]
+  addRackInfoWindow(origMarker)
+}
+;
+function addRackInfoWindow(brackMarker) {
+  closeAllInfoWindows()
+  var newBrack = new Brack(brackMarker)
+  map.panTo(newBrack.latLng);
+  var contentString = newBrack.contentString();
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  })
+  infoWindows.push(infowindow);
+  infowindow.open(map, brackMarker)
+}
+
+function closeAllInfoWindows() {
+    for (var i=0; i<infoWindows.length; i++) {
+      infoWindows[i].close();
+    }
+    infoWindows = [];
 }
 ;
 // This is a manifest file that'll be compiled into application.js, which will include all the files

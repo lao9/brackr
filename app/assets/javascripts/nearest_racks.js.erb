@@ -1,0 +1,41 @@
+function expandRackOptions() {
+  $('.racks-index').on('click', function(event){
+    if ($(event.target).hasClass("rack")) {
+      var brackId = $(event.target).data("id")
+      refocusMap(brackId)
+    }
+    else if ($(this).hasClass("racks-hide")) {
+      toggleRackIndex()
+      $("#map").animate({
+        height: "-=120",
+      }, 700)
+    } else {
+      toggleRackIndex()
+      $("#map").animate({
+        height: "+=120"
+      }, 700)
+    }
+  })
+}
+
+function addRackToIndex(rackId, distance) {
+  var formatDistance = Number(distance).toFixed(2)
+  $('.nearest-racks').append(`
+    <div tabindex="0" class="rack" data-id=${rackId}>
+      <%= image_tag("b-icon.png", alt: "bike icon", width:40) %>
+      ${formatDistance} miles away
+    </div>
+  `)
+}
+
+function toggleRackIndex(){
+  $('.racks-show').slideToggle(700)
+  $('.racks-hide').slideToggle(700)
+}
+
+function refocusMap(brackId) {
+  var origMarker = brackMarkers.filter(function(v){
+    return v["markerId"] == brackId;
+  })[0]
+  addRackInfoWindow(origMarker)
+}

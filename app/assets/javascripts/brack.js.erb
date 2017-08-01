@@ -1,0 +1,14 @@
+function Brack(rawBrack) {
+  this.latLng = rawBrack.getPosition();
+  this.distance = Number(rawBrack.distance).toFixed(2)
+  this.cross_streets = rawBrack.cross_streets
+  this.owner = rawBrack.owner
+}
+
+Brack.prototype.contentString = function() {
+  return `<div>
+    <h4><%= image_tag("b-icon.png", alt: "bike icon", width:30)%> ${this.distance} miles away</h4>
+    <p>${this.cross_streets}<p>
+    <p>Owner: ${this.owner}<p>
+ </div>`
+}
