@@ -13,60 +13,14 @@ BrackMap.drawMap = function(coords) {
   brackMap = new BrackMap(coords)
   // add map area and center
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 18,
+    zoom: 15,
     center: brackMap.center
   });
   // create search box and link it to the UI element
-  // var input = document.getElementById('pac-input')
-  // var searchBox = new google.maps.places.SearchBox(input);
-  // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-  // map.addListener('bounds_changed', function(){
-  //   searchBox.setBounds(map.getBounds());
-  // })
-  // searchBox.addListener('places_changed', function(){
-  //   var places = searchBox.getPlaces();
-  //   if (places.length == 0) {
-  //     return;
-  //   }
-  //   // clear out the old markers
-  //   brackMarkers.forEach(function(marker) {
-  //     marker.setMap(null);
-  //   });
-  //   brackMarkers = [];
-  //
-  //   // For each place, get the icon, name and location.
-  //   var bounds = new google.maps.LatLngBounds();
-  //   places.forEach(function(place) {
-  //      if (!place.geometry) {
-  //        console.log("Returned place contains no geometry");
-  //        return;
-  //      }
-  //      var icon = {
-  //        url: place.icon,
-  //        size: new google.maps.Size(71, 71),
-  //        origin: new google.maps.Point(0, 0),
-  //        anchor: new google.maps.Point(17, 34),
-  //        scaledSize: new google.maps.Size(25, 25)
-  //      };
-  //
-  //      // Create a marker for each place.
-  //       brackMarkers.push(new google.maps.Marker({
-  //         map: map,
-  //         icon: icon,
-  //         title: place.name,
-  //         position: place.geometry.location
-  //       }));
-  //
-  //       if (place.geometry.viewport) {
-  //       // Only geocodes have viewport.
-  //         bounds.union(place.geometry.viewport);
-  //       } else {
-  //         bounds.extend(place.geometry.location);
-  //       }
-  //     })
-  //     map.fitBounds(bounds);
-  //   })
-  // })
+  var input = document.getElementById('pac-input')
+  var searchBox = new google.maps.places.SearchBox(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  searchBoxListener(searchBox)
   // add users current location and marker
   var userLatLng = new google.maps.LatLng(brackMap.lat, brackMap.lng);
   var userMarker = new google.maps.Marker({
@@ -75,8 +29,58 @@ BrackMap.drawMap = function(coords) {
     animation: google.maps.Animation.DROP,
     icon: brackMap.image
   })
+  currentCenter.push(userMarker)
   // add markers for bike rack's near user center
   addMarkers(brackMap.latLng)
+}
+
+function clearCurrentMarkers() {
+  $(".rack").remove()
+  currentCenter.forEach(function(marker){
+    marker.setMap(null)
+  })
+  currentCenter = []
+  brackMarkers.forEach(function(marker) {
+    marker.setMap(null)
+  })
+  brackMarkers = []
+}
+
+function searchBoxListener(searchBox) {
+  searchBox.addListener('places_changed', function(){
+    // get location from search
+    var places = searchBox.getPlaces();
+    if (places.length == 0) { return; }
+    var place = places[0]
+    if (!place.geometry) {
+      console.log("Returned place contains no geometry");
+      return;
+    }
+    // clear out old markers
+    clearCurrentMarkers()
+    // how to clear current location marker?
+    // or maybe just remove current markers
+    // re-add using addMarkers?
+    var latLng = place.geometry.location
+    var strngLatLng = `${latLng.lat()},${latLng.lng()}`
+    var resultImage = {
+      url: 'https://mississippistateparks.reserveamerica.com/images/maps/mm_20_chosen.png'
+    }
+    var userMarker = new google.maps.Marker({
+      position: latLng,
+      map: map,
+      animation: google.maps.Animation.DROP,
+      icon: 'https://mississippistateparks.reserveamerica.com/images/maps/mm_20_chosen.png'
+    })
+    map.panTo(latLng);
+    addMarkers(strngLatLng)
+  })
+}
+
+function setMapZoom(distance) {
+  var dynaZoom = Math.round((-7 * distance) + 19)
+  if (dynaZoom < 10) { dynaZoom = 10 }
+  map.setZoom(dynaZoom)
 }
 
 function addMarkers(latLng) {
@@ -107,7 +111,6 @@ function addMarkers(latLng) {
 
       // save markers to global collection for later access
       brackMarkers.push(marker)
-
       // add listener to marker if clicked
       marker.addListener('click', function() {
         addRackInfoWindow(this)
@@ -115,6 +118,10 @@ function addMarkers(latLng) {
 
       // add rack to nearest rack index
       addRackToIndex(data[i].id, data[i].distance)
+
+      if (i == data.length-1) {
+        setMapZoom(distance)
+      }
     }
   })
 }

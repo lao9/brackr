@@ -4,7 +4,7 @@
         <%= text_field_tag :q, "Find nearest bike rack...", class: 'form-control' %>
     <% end %>
   </div>
-  <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
   <hr>
   <div id="map"></div>
   <div tabindex="0" class="racks-index racks-hide">
@@ -20,5 +20,5 @@
 </div>
 
 <script async defer
-  src=<%="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_KEY']}"%>>
+  src=<%="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_KEY']}&libraries=places"%>>
 </script>
