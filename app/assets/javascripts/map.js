@@ -19,9 +19,14 @@ BrackMap.drawMap = function(coords) {
   // create search box and link it to the UI element
   var input = document.getElementById('pac-input')
   var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
   searchBoxListener(searchBox)
   // add users current location and marker
+  placeCenterMarker(brackMap)
+  // add markers for bike rack's near user center
+  addMarkers(brackMap.latLng)
+}
+
+function placeCenterMarker(brackMap) {
   var userLatLng = new google.maps.LatLng(brackMap.lat, brackMap.lng);
   var userMarker = new google.maps.Marker({
     position: userLatLng,
@@ -30,8 +35,6 @@ BrackMap.drawMap = function(coords) {
     icon: brackMap.image
   })
   currentCenter.push(userMarker)
-  // add markers for bike rack's near user center
-  addMarkers(brackMap.latLng)
 }
 
 function clearCurrentMarkers() {
@@ -58,22 +61,13 @@ function searchBoxListener(searchBox) {
     }
     // clear out old markers
     clearCurrentMarkers()
-    // how to clear current location marker?
-    // or maybe just remove current markers
-    // re-add using addMarkers?
+    // place new center marker
     var latLng = place.geometry.location
-    var strngLatLng = `${latLng.lat()},${latLng.lng()}`
-    var resultImage = {
-      url: 'https://mississippistateparks.reserveamerica.com/images/maps/mm_20_chosen.png'
-    }
-    var userMarker = new google.maps.Marker({
-      position: latLng,
-      map: map,
-      animation: google.maps.Animation.DROP,
-      icon: 'https://mississippistateparks.reserveamerica.com/images/maps/mm_20_chosen.png'
-    })
-    map.panTo(latLng);
-    addMarkers(strngLatLng)
+    brackMap = new BrackMap({latitude: latLng.lat(), longitude: latLng.lng()})
+    placeCenterMarker(brackMap)
+    map.panTo(latLng)
+    // re-calculate nearest bike racks
+    addMarkers(brackMap.latLng)
   })
 }
 
@@ -119,6 +113,7 @@ function addMarkers(latLng) {
       // add rack to nearest rack index
       addRackToIndex(data[i].id, data[i].distance)
 
+      // reset zoom based on furthest rack distance
       if (i == data.length-1) {
         setMapZoom(distance)
       }

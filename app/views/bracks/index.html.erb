@@ -1,10 +1,5 @@
 <div class="map-box">
-  <div class="search">
-    <%= form_tag :bracks,  method: :get do %>
-        <%= text_field_tag :q, "Find nearest bike rack...", class: 'form-control' %>
-    <% end %>
-  </div>
-  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+  <input id="pac-input" class="controls" type="text" placeholder="Find nearest bike rack...">
   <hr>
   <div id="map"></div>
   <div tabindex="0" class="racks-index racks-hide">
