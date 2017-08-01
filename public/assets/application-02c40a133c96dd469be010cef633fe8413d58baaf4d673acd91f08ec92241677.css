@@ -48,6 +48,15 @@ body {
   overflow: scroll;
   overflow-x: hidden;
 }
+
+#pac-input {
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+#pack-input:focus {
+  border-color: #4d90fe;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
