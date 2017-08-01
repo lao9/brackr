@@ -1,0 +1,20 @@
+<h1>Login</h1>
+
+<div class="well">
+  <%= form_for :session, url: login_path do |f| %>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.text_field :email, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control'  %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Log In", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+  <h5>Don't have an account? <%= link_to "Sign up by clicking here!", new_user_path %></h5>
+</div>
