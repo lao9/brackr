@@ -1,6 +1,6 @@
 <div class="navbar navbar-inverse bg-inverse navbar-static-top">
   <div class="container">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".bs-example-navbar-collapse-9">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
@@ -8,7 +8,10 @@
     <a class="navbar-brand" href="/">Brackr</a>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li>Menu</li>
+        <!-- if user is logged in, add a greeting -->
+        <li><a href="#">Login</a></li>
+        <li><%= link_to "Bike Rack Map", bracks_path %></li>
+        <li><a href="#">Add New Bike</a></li>
       </ul>
     </div>
   </div>
