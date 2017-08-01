@@ -6,9 +6,4 @@ class Api::V1::BracksController < ApplicationController
     render json: @bracks, latlng: latlng
   end
 
-  def show
-    @brack = Brack.find(params[:id])
-    render json: @brack, latlng: params[:latlng]
-  end
-
 end

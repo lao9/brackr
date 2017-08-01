@@ -1,6 +1,7 @@
 function geolocator() {
   addWaitingMessage()
   grabUserLocation()
+  clearFlashMessage()
 }
 
 function addWaitingMessage() {
@@ -33,4 +34,10 @@ function showPosition(position) {
   $(".alert").addClass("alert-success")
   $(".alert").html('<button type="button" class="close" data-dismiss="alert">x</button>\nSuccess!')
   BrackMap.drawMap(position.coords)
+}
+
+function clearFlashMessage () {
+  setTimeout(function() {
+          $('.alert').fadeOut('slow');
+        }, 5000);
 }

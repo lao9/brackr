@@ -13,10 +13,20 @@ BrackMap.drawMap = function(coords) {
   brackMap = new BrackMap(coords)
   // add map area and center
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 18,
+    zoom: 15,
     center: brackMap.center
   });
+  // create search box and link it to the UI element
+  var input = document.getElementById('pac-input')
+  var searchBox = new google.maps.places.SearchBox(input);
+  searchBoxListener(searchBox)
   // add users current location and marker
+  placeCenterMarker(brackMap)
+  // add markers for bike rack's near user center
+  addMarkers(brackMap.latLng)
+}
+
+function placeCenterMarker(brackMap) {
   var userLatLng = new google.maps.LatLng(brackMap.lat, brackMap.lng);
   var userMarker = new google.maps.Marker({
     position: userLatLng,
@@ -24,8 +34,47 @@ BrackMap.drawMap = function(coords) {
     animation: google.maps.Animation.DROP,
     icon: brackMap.image
   })
-  // add markers for bike rack's near user center
-  addMarkers(brackMap.latLng)
+  currentCenter.push(userMarker)
+}
+
+function clearCurrentMarkers() {
+  $(".rack").remove()
+  currentCenter.forEach(function(marker){
+    marker.setMap(null)
+  })
+  currentCenter = []
+  brackMarkers.forEach(function(marker) {
+    marker.setMap(null)
+  })
+  brackMarkers = []
+}
+
+function searchBoxListener(searchBox) {
+  searchBox.addListener('places_changed', function(){
+    // get location from search
+    var places = searchBox.getPlaces();
+    if (places.length == 0) { return; }
+    var place = places[0]
+    if (!place.geometry) {
+      console.log("Returned place contains no geometry");
+      return;
+    }
+    // clear out old markers
+    clearCurrentMarkers()
+    // place new center marker
+    var latLng = place.geometry.location
+    brackMap = new BrackMap({latitude: latLng.lat(), longitude: latLng.lng()})
+    placeCenterMarker(brackMap)
+    map.panTo(latLng)
+    // re-calculate nearest bike racks
+    addMarkers(brackMap.latLng)
+  })
+}
+
+function setMapZoom(distance) {
+  var dynaZoom = Math.round((-7 * distance) + 19)
+  if (dynaZoom < 10) { dynaZoom = 10 }
+  map.setZoom(dynaZoom)
 }
 
 function addMarkers(latLng) {
@@ -56,7 +105,6 @@ function addMarkers(latLng) {
 
       // save markers to global collection for later access
       brackMarkers.push(marker)
-
       // add listener to marker if clicked
       marker.addListener('click', function() {
         addRackInfoWindow(this)
@@ -64,6 +112,11 @@ function addMarkers(latLng) {
 
       // add rack to nearest rack index
       addRackToIndex(data[i].id, data[i].distance)
+
+      // reset zoom based on furthest rack distance
+      if (i == data.length-1) {
+        setMapZoom(distance)
+      }
     }
   })
 }
