@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-  
-  resources :bracks, only: [:index]
+
+  resources :bracks, only: [:index, :new]
   resources :users, only: [:new, :create]
 
   namespace :api do
