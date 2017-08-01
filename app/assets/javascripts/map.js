@@ -30,7 +30,7 @@ BrackMap.drawMap = function(coords) {
 
 function addMarkers(latLng) {
   // get request to brack index api
-  $.getJSON("http://localhost:3000/api/v1/bracks", {latlng: latLng}, function(data){
+  $.getJSON("https://brackr.herokuapp.com/api/v1/bracks", {latlng: latLng}, function(data){
     // for each bike rack...
     for (var i = 0; i < data.length; i++) {
       // save attributes for the marker
