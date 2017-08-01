@@ -72,9 +72,17 @@ function searchBoxListener(searchBox) {
 }
 
 function setMapZoom(distance) {
-  var dynaZoom = Math.round((-7 * distance) + 19)
-  if (dynaZoom < 10) { dynaZoom = 10 }
-  map.setZoom(dynaZoom)
+  if (distance < 0.2) {
+    map.setZoom(18)
+  } else if (distance < 0.5) {
+    map.setZoom(17)
+  } else if (distance < 1) {
+    map.setZoom(15)
+  } else if (distance < 2) {
+    map.setZoom(12)
+  } else {
+    map.setZoom(10)
+  }
 }
 
 function addMarkers(latLng) {

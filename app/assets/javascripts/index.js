@@ -5,6 +5,9 @@ var brackMarkers = [];
 var currentCenter = [];
 
 $(document).ready(function(){
-  geolocator()
-  expandRackOptions()
+  var path = window.location.pathname
+  if (path === "/" || path === "/bracks") {
+    geolocator()
+    expandRackOptions()
+  }
 })
