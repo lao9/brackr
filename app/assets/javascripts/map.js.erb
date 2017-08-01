@@ -1,36 +1,13 @@
-// define global map variables
-var map;
-var infoWindows = [];
-var brackMarkers = [];
-
 $(document).ready(function(){
 
-  $(".container:nth-child(2)").prepend(
-    `<div class='alert alert-warning'>
-    <button type='button' class='close' data-dismiss='alert'>x</button>
-    Waiting to obtain your location...
-    </div>
-    `)
+  geolocator()
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    $(".alert").removeClass("alert-warning")
-    $(".alert").addClass("alert-danger")
-    $(".alert").html('<button type="button" class="close" data-dismiss="alert">x</button>\nSuccess!')
-    console.log("Geolocation is not supported by this browser.")
-    drawMap({latitude: 39.749598000000006, longitude: -105.0004297})
-  }
+
+
 
 })
 
-function showPosition(position) {
-  $(".alert").removeClass("alert-warning")
-  $(".alert").addClass("alert-success")
-  $(".alert").html('<button type="button" class="close" data-dismiss="alert">x</button>\nSuccess!')
-  console.log("Latitude: " + position.coords.latitude + "\nLongitude: " + position.coords.longitude)
-  drawMap(position.coords)
-}
+
 
 function addRackToIndex(rackId, distance) {
   var formatDistance = Number(distance).toFixed(2)
@@ -83,19 +60,7 @@ function drawMap(coords) {
       brackMarkers.push(marker)
 
       marker.addListener('click', function() {
-        closeAllInfoWindows();
-        var newCenter = this.getPosition();
-        map.panTo(newCenter);
-        var contentString = `<div>
-                                <h4><%= image_tag("b-icon.png", alt: "bike icon", width:30) %> ${this.distance} miles away</h4>
-                                <p>${this.cross_streets}<p>
-                                <p>Owner: ${this.owner}<p>
-                             </div>`
-        var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        })
-        infoWindows.push(infowindow);
-        infowindow.open(map, this)
+        addRackInfoWindow(this)
       });
 
 

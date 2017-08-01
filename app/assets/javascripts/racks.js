@@ -1,7 +1,5 @@
 
-$(document).ready(function(){
-  expandRackOptions()
-})
+
 
 function toggleRackIndex(){
   $('.racks-show').slideToggle(1000)
