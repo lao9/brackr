@@ -4,5 +4,6 @@ var infoWindows = [];
 var brackMarkers = [];
 
 $(document).ready(function(){
+  geolocator()
   expandRackOptions()
 })

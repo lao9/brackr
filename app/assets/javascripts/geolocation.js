@@ -25,12 +25,12 @@ function failureMessage() {
   $(".alert").addClass("alert-danger")
   var errorMessage = "Geolocation is not supported by this browser."
   $(".alert").html(`<button type="button" class="close" data-dismiss="alert">x</button>\n${errorMessage}`)
-  drawMap({latitude: 39.749598000000006, longitude: -105.0004297})
+  BrackMap.drawMap({latitude: 39.749598000000006, longitude: -105.0004297})
 }
 
 function showPosition(position) {
   $(".alert").removeClass("alert-warning")
   $(".alert").addClass("alert-success")
   $(".alert").html('<button type="button" class="close" data-dismiss="alert">x</button>\nSuccess!')
-  drawMap(position.coords)
+  BrackMap.drawMap(position.coords)
 }
