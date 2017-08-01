@@ -7,7 +7,6 @@ var currentCenter = [];
 $(document).ready(function(){
   var path = window.location.pathname
   if (path === "/" || path === "/bracks") {
-    debugger
     geolocator()
     expandRackOptions()
   }
