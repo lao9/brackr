@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
   def destroy
     session.clear
     flash[:notice] = "Goodbye!"
-    redirect_to login_path
+    redirect_to bracks_path
   end
 
 end
