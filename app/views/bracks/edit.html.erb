@@ -1,0 +1,23 @@
+<h1>Add a New Rack</h1>
+
+<div class="well">
+  <h4>Edit and Confirm Bike Rack Information</h4>
+  <%= form_for @brack do |f|  %>
+    <div class="form-group">
+      <%= f.label :cross_streets %>
+      <p>We tried autogenerating them for you, but we're not perfect:</p>
+      <%= f.text_field :cross_streets, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :owner %>
+      <p>Either your name or your organization's name:</p>
+      <%= f.text_field :owner, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Save New Rack", class:"btn btn-primary"  %>
+    </div>
+
+  <% end %>
+</div>
