@@ -5,13 +5,12 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user
     unless current_user
-      flash[:alert] = "Please login to continue!"
-      redirect_to login_path
+      redirect_to login_path, :alert => 'Please log in to continue!'
     end
   end
 
   def current_user
     @user ||= User.find(session[:user_id]) if session[:user_id]
   end
-  
+
 end

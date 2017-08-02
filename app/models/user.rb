@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
 
+  validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true
 
   def check_user_errors(params)
@@ -11,5 +12,10 @@ class User < ApplicationRecord
     messages << "Please fill out password confirmation field." if params[:pass_confirm].empty?
     messages << "Password confirmation does not match." if params[:password] != params[:pass_confirm]
     return messages.join("\n")
+  end
+
+  def generate_username
+    return "#{first_name} #{last_name[0]}." unless organization
+    organization
   end
 end

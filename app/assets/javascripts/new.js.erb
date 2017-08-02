@@ -76,11 +76,32 @@ function moveToStepTwo() {
   }, 3000);
   $(".new-next").on('click', function(){
     console.log("Yay!")
-    debugger
+    moveToStepThree()
   })
 }
 
 function moveToStepThree() {
+  var user_id = $(".map-box").data("id")
+  var lat = currentCenter[0].position.lat()
+  var lng = currentCenter[0].position.lng()
+  var token = $(".map-box").prop("id")
+
   // make ajax post request to new bracks
-  
+  var brackData = {
+    brack: {
+      user_id: user_id,
+      lat: lat,
+      long: lng,
+      token: token
+    }
+  }
+
+  $.ajax({
+    url: "/api/v1/bracks",
+    method: "POST",
+    data: brackData
+  }).done(function(data){
+    debugger
+    window.location.href = `/bracks/${data.id}/edit`
+  })
 }

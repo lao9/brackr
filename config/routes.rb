@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :bracks, only: [:index, :new]
+  resources :bracks, only: [:index, :new, :edit, :update]
   resources :users, only: [:new, :create]
 
   namespace :api do

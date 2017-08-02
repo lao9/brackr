@@ -7,7 +7,14 @@ describe "Bracks Create API" do
   it "adds a new brack location owned by user with an organization" do
     expect(Brack.count).to eq(0)
 
-    post '/api/v1/bracks', params: {brack: {user_id: user1.id, lat: brack.lat, long: brack.long}}
+    creation_params = {
+      user_id: user1.id,
+      lat: brack.lat,
+      long: brack.long,
+      token: ENV['POST_TO_BRACKS_KEY']
+    }
+
+    post '/api/v1/bracks', params: {brack: creation_params}
 
     expect(response).to be_success
     expect(Brack.count).to eq(1)
@@ -22,7 +29,14 @@ describe "Bracks Create API" do
   it "adds a new brack location owned by user without an organization" do
     expect(Brack.count).to eq(0)
 
-    post '/api/v1/bracks', params: {brack: {user_id: user2.id, lat: brack.lat, long: brack.long}}
+    creation_params = {
+      user_id: user2.id,
+      lat: brack.lat,
+      long: brack.long,
+      token: ENV['POST_TO_BRACKS_KEY']
+    }
+
+    post '/api/v1/bracks', params: {brack: creation_params}
 
     expect(response).to be_success
     expect(Brack.count).to eq(1)

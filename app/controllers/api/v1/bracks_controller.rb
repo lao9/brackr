@@ -18,7 +18,7 @@ class Api::V1::BracksController < ActionController::API
   private
 
     def brack_params
-      params.require(:brack).permit(:user_id, :lat, :long)
+      params.require(:brack).permit(:user_id, :lat, :long, :token)
     end
 
 end

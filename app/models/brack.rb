@@ -11,15 +11,12 @@ class Brack < ApplicationRecord
   end
 
   def self.add_new(params)
+    return new() unless params[:token] == ENV['POST_TO_BRACKS_KEY']
     # set lat and long
     lat = params[:lat]
     long = params[:long]
     # set user
-    user = User.find(params[:user_id])
-    owner = user.organization
-    unless owner
-      owner = "#{user.first_name} #{user.last_name[0]}."
-    end
+    owner = User.find(params[:user_id]).generate_username
     # get cross_streets
     lat_long = {lat: lat, long: long}
     cross_streets = CrossStreetService.find_by_coordinates(lat_long)
