@@ -25,6 +25,17 @@ If you want to find the nearest bike racks to a certain location within Denver, 
 
 ![aug-01-2017 12-43-53](https://user-images.githubusercontent.com/4068853/28841334-1f29ef9c-76b7-11e7-9d35-070beee22c9c.gif)
 
+If you want to add a bike rack, first you must be logged in. Then navigate to the "Add New Rack" menu option and type in a location or address closet to the new bike rack.
+
+![add_step1](https://user-images.githubusercontent.com/4068853/28855575-eb3a4fd0-76fa-11e7-9d24-a211eef3cc76.gif)
+
+Then drag the green icon to where the bike rack is located.
+
+![aug-01-2017 20-48-43](https://user-images.githubusercontent.com/4068853/28855578-ee5b19e2-76fa-11e7-91f6-1aeb0c537a9c.gif)
+
+Finally, confirm that the cross streets and owner information is correct, and your bike will be added!
+
+![add_step3](https://user-images.githubusercontent.com/4068853/28855576-eb4e8cf2-76fa-11e7-83b9-bd29cc6423d4.gif)
 
 ## Setup Instructions
 
@@ -44,6 +55,8 @@ If you want to find the nearest bike racks to a certain location within Denver, 
 
 Obtain a google maps Geocode API key [here](https://developers.google.com/maps/documentation/geocoding/intro) and Map API Key [here](https://developers.google.com/maps/documentation/javascript/earthquakes#placing_basic_markers). There should be a button in the top right corner that says "Get a Key".
 
+Next, you'll need to reach out to me (contact info below) to receive the POST_TO_BRACKS_KEY.
+
 Then, using the [figaro](https://github.com/laserlemon/figaro) gem, run the following command in console:
 
 `bundle exec figaro install`
@@ -53,6 +66,7 @@ Then, open the config/application.yml file created and add the following, pastin
 ```
 GOOGLE_GEOCODE_KEY: [YOUR_KEY_HERE]
 GOOGLE_MAP_KEY: [YOUR_KEY_HERE]
+POST_TO_BRACKS_KEY: [YOUR_KEY_HERE]
 ```
 
 5. Setup database
@@ -156,10 +170,28 @@ Returns collection of 20 brack objects sorted by distance closest to the given l
 
 ```
 
+### Create New Brack with User, Lat, Long, and Token Params
+
+`POST /api/v1/bracks?brack[user_id]=1&brack[lat]="39.7505962"&brack[long]="-104.9964367"&brack[token]=[YOUR_TOKEN_HERE]`
+
+Returns the newly added Brack:
+
+```
+{
+    "id": 576,
+    "lat": 39.7505962,
+    "long": -104.9964367,
+    "cross_streets": "Curtis Park",
+    "owner": "Turing School",
+    "distance": 1.013942751541404737
+}
+
+```
+
+
 ## Upcoming Features
 
 * Circumvent browsers with geolocation disabled or unavailable
-* Ability for users to add new racks not included in Denver dataset
 * Seed with [Denver B-Cycle Data](https://denver.bcycle.com/pages-in-top-navigation/map)
 * Add Navigation Options
 * Allow users to add comments
@@ -168,5 +200,6 @@ Returns collection of 20 brack objects sorted by distance closest to the given l
 ## Contact Information
 
 Creator: Lauren Oliveri
+
 Email: lauren.oliveri.9@gmail.com
 
