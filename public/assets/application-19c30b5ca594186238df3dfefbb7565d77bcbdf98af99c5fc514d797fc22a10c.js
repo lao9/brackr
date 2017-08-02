@@ -14607,6 +14607,12 @@ $(document).ready(function(){
   if (path === "/" || path === "/bracks") {
     geolocator()
     expandRackOptions()
+  } else if (path === "/bracks/new") {
+    url = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCqyua2zRg2f4jFWTQ8L_ZlksqfrELsb5A&libraries=places'
+    $.getScript(url).done(function() {
+      var coords = {latitude: 39.7495666290001, longitude: -105.000145148}
+      BrackMap.drawMapForNewBrack(coords)
+    })
   }
 })
 ;
@@ -14699,7 +14705,7 @@ function setMapZoom(distance) {
 
 function addMarkers(latLng) {
   // get request to brack index api
-  $.getJSON("https://brackr.herokuapp.com/api/v1/bracks", {latlng: latLng}, function(data){
+  $.getJSON("/api/v1/bracks", {latlng: latLng}, function(data){
     // for each bike rack...
     for (var i = 0; i < data.length; i++) {
       // save attributes for the marker
@@ -14781,6 +14787,102 @@ function refocusMap(brackId) {
     return v["markerId"] == brackId;
   })[0]
   addRackInfoWindow(origMarker)
+}
+;
+BrackMap.drawMapForNewBrack = function(coords) {
+  // setup map instance vars for a central location
+  brackMap = new BrackMap(coords)
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: brackMap.center
+  })
+  var input = document.getElementById('pac-input')
+  var searchBox = new google.maps.places.SearchBox(input);
+  addNewBrackListener(searchBox)
+}
+
+function addNewBrackListener(searchBox) {
+  searchBox.addListener('places_changed', function(){
+    var searched = false
+
+    clearCurrentMarkers()
+    // get location from search
+    var places = searchBox.getPlaces();
+    if (places.length == 0) { return; }
+    var place = places[0]
+    if (!place.geometry) {
+      console.log("Returned place contains no geometry");
+      return;
+    }
+    // place center marker
+    var latLng = place.geometry.location
+    brackMap = new BrackMap({latitude: latLng.lat(), longitude: latLng.lng()})
+    addDraggableMarker(brackMap)
+    // doesn't animate map more than once
+    if (!searched) {
+      moveToStepTwo()
+      searched = true
+    }
+  })
+}
+
+function addDraggableMarker(brackMap){
+  var userLatLng = new google.maps.LatLng(brackMap.lat, brackMap.lng);
+  var userMarker = new google.maps.Marker({
+    position: userLatLng,
+    map: map,
+    animation: google.maps.Animation.DROP,
+    icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+    draggable: true,
+    title: "Drag me!"
+  })
+  currentCenter.push(userMarker)
+  map.panTo(userLatLng)
+  map.setZoom(18)
+}
+
+function moveToStepTwo() {
+  $("h4").text("Drag bike rack pin to correct location on map")
+  $("h4").fadeIn("slow", function() {
+    $(this).toggleClass("highlight");
+  });
+  $("#map").animate({
+    height: "-=100"
+  }, 700)
+  $(".new-next").show()
+  setTimeout(function () {
+    $("h4").toggleClass("highlight");
+    $("h4").toggleClass("unhighlight");
+  }, 2000);
+
+
+  $(".new-next").on('click', function(){
+    createNewBrack()
+  })
+}
+
+function createNewBrack() {
+  var user_id = $(".map-box").data("id")
+  var lat = currentCenter[0].position.lat()
+  var lng = currentCenter[0].position.lng()
+  var token = $(".map-box").prop("id")
+
+  var brackData = {
+    brack: {
+      user_id: user_id,
+      lat: lat,
+      long: lng,
+      token: token
+    }
+  }
+
+  $.ajax({
+    url: "/api/v1/bracks",
+    method: "POST",
+    data: brackData
+  }).done(function(data){
+    window.location.href = `/bracks/${data.id}/edit`
+  })
 }
 ;
 function addRackInfoWindow(brackMarker) {

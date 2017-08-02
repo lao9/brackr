@@ -57,6 +57,26 @@ body {
 #pack-input:focus {
   border-color: #4d90fe;
 }
+
+.new-next {
+  background-color: black;
+  border-style: ridge;
+  color: white;
+  text-align: center;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  display: none;
+}
+
+.unhighlight {
+  background-color: none;
+  transition: all 1s ease-in-out;
+}
+
+.highlight {
+  background-color: #fceab8;
+  transition: all 1s ease-in-out;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
