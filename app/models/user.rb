@@ -11,6 +11,8 @@ class User < ApplicationRecord
     messages << "Please fill out password field." if params[:password].empty?
     messages << "Please fill out password confirmation field." if params[:pass_confirm].empty?
     messages << "Password confirmation does not match." if params[:password] != params[:pass_confirm]
+    messages << "First name can't be blank." if params[:first_name].empty?
+    messages << "Last name can't be blank." if params[:last_name].empty?
     return messages.join("\n")
   end
 

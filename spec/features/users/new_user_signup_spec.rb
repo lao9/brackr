@@ -145,5 +145,43 @@ feature "new user sign up" do
       expect(page).to have_content "Log In"
       expect(page).to_not have_content("Log Out")
     end
+    scenario "they provide no first name" do
+      visit new_user_path
+
+      within ".well" do
+        fill_in 'user[first_name]', with: ""
+        fill_in 'user[last_name]', with: user.last_name
+        fill_in 'user[email]', with: user.email
+        fill_in 'user[organization]', with: user.organization
+        fill_in 'user[password]', with: user.password
+        fill_in 'user[password_confirmation]', with: user.password
+        click_on "Sign Up"
+      end
+
+      expect(page).to have_content("First name can't be blank.")
+      expect(current_path).to eq(new_user_path)
+      expect(page).to have_content "Sign Up"
+      expect(page).to have_content "Log In"
+      expect(page).to_not have_content("Log Out")
+    end
+    scenario "they provide no last name" do
+      visit new_user_path
+
+      within ".well" do
+        fill_in 'user[first_name]', with: user.first_name
+        fill_in 'user[last_name]', with: ""
+        fill_in 'user[email]', with: user.email
+        fill_in 'user[organization]', with: user.organization
+        fill_in 'user[password]', with: user.password
+        fill_in 'user[password_confirmation]', with: user.password
+        click_on "Sign Up"
+      end
+
+      expect(page).to have_content("Last name can't be blank.")
+      expect(current_path).to eq(new_user_path)
+      expect(page).to have_content "Sign Up"
+      expect(page).to have_content "Log In"
+      expect(page).to_not have_content("Log Out")
+    end
   end
 end
