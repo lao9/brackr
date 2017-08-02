@@ -81,5 +81,6 @@ function moveToStepTwo() {
 }
 
 function moveToStepThree() {
+  // make ajax post request to new bracks
   
 }
