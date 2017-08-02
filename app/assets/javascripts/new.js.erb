@@ -26,55 +26,31 @@ function addNewBrackListener(searchBox) {
     // place center marker
     var latLng = place.geometry.location
     brackMap = new BrackMap({latitude: latLng.lat(), longitude: latLng.lng()})
-
-    var userLatLng = new google.maps.LatLng(brackMap.lat, brackMap.lng);
-
-    var userMarker = new google.maps.Marker({
-      position: userLatLng,
-      map: map,
-      animation: google.maps.Animation.DROP,
-      icon: brackMap.image,
-      draggable: true,
-      title: "Drag me!"
-    })
-
+    addDraggableMarker(brackMap)
+    // doesn't animate map more than once
     if (!searched) {
       moveToStepTwo()
       searched = true
     }
-
-    currentCenter.push(userMarker)
-
-    map.panTo(latLng)
-    map.setZoom(18)
-    // add marker drag listener
-    google.maps.event.addListener(userMarker, 'dragend', function(event) {
-      console.log(currentCenter[0].position.lat())
-      console.log(currentCenter[0].position.lng())
-      console.log('final position is '+event.latLng.lat()+' / '+event.latLng.lng());
-    });
-
   })
 }
 
-function moveToStepTwo() {
-  // setTimeout(function(){
-  //   $("h5").text("Drag bike rack pin to correct location on map")
-  //   $("h5").fadeIn("slow", function() {
-  //     $(this).toggleClass("highlight");
-  //   });
-  // }, 1000)
-  // setTimeout(function(){
-  //   $("#map").animate({
-  //     height: "-=100"
-  //   }, 700)
-  //   $(".new-next").show()
-  // }, 2000)
-  // setTimeout(function () {
-  //   $("h5").toggleClass("highlight");
-  //   $("h5").toggleClass("unhighlight");
-  // }, 3000);
+function addDraggableMarker(brackMap){
+  var userLatLng = new google.maps.LatLng(brackMap.lat, brackMap.lng);
+  var userMarker = new google.maps.Marker({
+    position: userLatLng,
+    map: map,
+    animation: google.maps.Animation.DROP,
+    icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+    draggable: true,
+    title: "Drag me!"
+  })
+  currentCenter.push(userMarker)
+  map.panTo(userLatLng)
+  map.setZoom(18)
+}
 
+function moveToStepTwo() {
   $("h4").text("Drag bike rack pin to correct location on map")
   $("h4").fadeIn("slow", function() {
     $(this).toggleClass("highlight");
@@ -90,18 +66,16 @@ function moveToStepTwo() {
 
 
   $(".new-next").on('click', function(){
-    console.log("Yay!")
-    moveToStepThree()
+    createNewBrack()
   })
 }
 
-function moveToStepThree() {
+function createNewBrack() {
   var user_id = $(".map-box").data("id")
   var lat = currentCenter[0].position.lat()
   var lng = currentCenter[0].position.lng()
   var token = $(".map-box").prop("id")
 
-  // make ajax post request to new bracks
   var brackData = {
     brack: {
       user_id: user_id,
