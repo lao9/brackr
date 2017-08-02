@@ -87,7 +87,7 @@ function setMapZoom(distance) {
 
 function addMarkers(latLng) {
   // get request to brack index api
-  $.getJSON("https://brackr.herokuapp.com/api/v1/bracks", {latlng: latLng}, function(data){
+  $.getJSON("/api/v1/bracks", {latlng: latLng}, function(data){
     // for each bike rack...
     for (var i = 0; i < data.length; i++) {
       // save attributes for the marker

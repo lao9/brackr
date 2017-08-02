@@ -58,22 +58,37 @@ function addNewBrackListener(searchBox) {
 }
 
 function moveToStepTwo() {
-  setTimeout(function(){
-    $("h5").text("Drag bike rack pin to correct location on map")
-    $("h5").fadeIn("slow", function() {
-      $(this).toggleClass("highlight");
-    });
-  }, 1000)
-  setTimeout(function(){
-    $("#map").animate({
-      height: "-=100"
-    }, 700)
-    $(".new-next").show()
-  }, 2000)
+  // setTimeout(function(){
+  //   $("h5").text("Drag bike rack pin to correct location on map")
+  //   $("h5").fadeIn("slow", function() {
+  //     $(this).toggleClass("highlight");
+  //   });
+  // }, 1000)
+  // setTimeout(function(){
+  //   $("#map").animate({
+  //     height: "-=100"
+  //   }, 700)
+  //   $(".new-next").show()
+  // }, 2000)
+  // setTimeout(function () {
+  //   $("h5").toggleClass("highlight");
+  //   $("h5").toggleClass("unhighlight");
+  // }, 3000);
+
+  $("h4").text("Drag bike rack pin to correct location on map")
+  $("h4").fadeIn("slow", function() {
+    $(this).toggleClass("highlight");
+  });
+  $("#map").animate({
+    height: "-=100"
+  }, 700)
+  $(".new-next").show()
   setTimeout(function () {
-    $("h5").toggleClass("highlight");
-    $("h5").toggleClass("unhighlight");
-  }, 3000);
+    $("h4").toggleClass("highlight");
+    $("h4").toggleClass("unhighlight");
+  }, 2000);
+
+
   $(".new-next").on('click', function(){
     console.log("Yay!")
     moveToStepThree()
@@ -101,7 +116,6 @@ function moveToStepThree() {
     method: "POST",
     data: brackData
   }).done(function(data){
-    debugger
     window.location.href = `/bracks/${data.id}/edit`
   })
 }
