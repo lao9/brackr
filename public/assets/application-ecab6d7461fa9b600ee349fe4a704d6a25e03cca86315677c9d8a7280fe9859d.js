@@ -14601,6 +14601,7 @@ var map;
 var infoWindows = [];
 var brackMarkers = [];
 var currentCenter = [];
+var searchCount = 0;
 
 $(document).ready(function(){
   var path = window.location.pathname
@@ -14796,6 +14797,7 @@ BrackMap.drawMapForNewBrack = function(coords) {
     zoom: 10,
     center: brackMap.center
   })
+  searchCount = 0
   var input = document.getElementById('pac-input')
   var searchBox = new google.maps.places.SearchBox(input);
   addNewBrackListener(searchBox)
@@ -14803,8 +14805,6 @@ BrackMap.drawMapForNewBrack = function(coords) {
 
 function addNewBrackListener(searchBox) {
   searchBox.addListener('places_changed', function(){
-    var searched = false
-
     clearCurrentMarkers()
     // get location from search
     var places = searchBox.getPlaces();
@@ -14819,9 +14819,9 @@ function addNewBrackListener(searchBox) {
     brackMap = new BrackMap({latitude: latLng.lat(), longitude: latLng.lng()})
     addDraggableMarker(brackMap)
     // doesn't animate map more than once
-    if (!searched) {
+    if (searchCount == 0) {
       moveToStepTwo()
-      searched = true
+      searchCount += 1
     }
   })
 }
