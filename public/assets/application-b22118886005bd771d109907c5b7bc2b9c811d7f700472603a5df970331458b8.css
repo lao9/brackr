@@ -77,6 +77,19 @@ body {
   background-color: #fceab8;
   transition: all 1s ease-in-out;
 }
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bigitem {
+}
+
+.smallitem {
+  align-self: flex-end;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
