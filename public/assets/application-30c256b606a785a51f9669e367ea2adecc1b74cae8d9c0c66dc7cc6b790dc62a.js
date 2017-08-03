@@ -13935,10 +13935,21 @@ function Brack(rawBrack) {
 }
 
 Brack.prototype.contentString = function() {
-  return `<div>
+  var nav_url = `https://www.google.com/maps/dir/?api=1&destination=${this.latLng.lat()},${this.latLng.lng()}&travelmode=bicycling`
+  return `<div class="brack-window">
     <h4><img alt="bike icon" width="30" src="/assets/b-icon-7f9780781c9d08b1b924f1036e54c13fb38c190fbf27dd58a55e502d699481be.png" /> ${this.distance} miles away</h4>
-    <p>${this.cross_streets}<p>
-    <p>Owner: ${this.owner}<p>
+      <div class="flex-container">
+        <div class="bigitem">
+          <p>${this.cross_streets}<p>
+          <p>Owner: ${this.owner}<p>
+        </div>
+        <div class="smallitem">
+          <a target="_blank" href=${nav_url}>
+            <span id="${this.latLng.lat()},${this.latLng.lng()}" class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
  </div>`
 }
 ;
