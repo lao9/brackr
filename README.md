@@ -13,6 +13,8 @@ Brackr is currently hosted on Heroku: https://brackr.herokuapp.com/
 
 ## Tutorial
 
+You can watch a demo of the product [here](https://vimeo.com/228285482), which was given on Thursday, August 3rd at Turing School of Software & Design in Denver, Colorado.
+
 On the first page, Brackr will find the 20 nearest bike racks to your current location.
 
 ![aug-01-2017 12-41-02](https://user-images.githubusercontent.com/4068853/28841239-cec2c880-76b6-11e7-8c27-c012bcf378c6.gif)
