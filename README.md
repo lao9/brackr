@@ -17,6 +17,11 @@ On the first page, Brackr will find the 20 nearest bike racks to your current lo
 
 ![aug-01-2017 12-41-02](https://user-images.githubusercontent.com/4068853/28841239-cec2c880-76b6-11e7-8c27-c012bcf378c6.gif)
 
+If you're not currently in Denver, or there are any issues with obtaining your current location, a pin will be dropped in the default location.
+
+<img width="583" alt="screen shot 2017-08-04 at 9 49 03 am" src="https://user-images.githubusercontent.com/4068853/28971513-36f35a56-78fa-11e7-9395-2797878cd656.png">
+
+
 You can select the pins on the map, or use the "nearest racks" to find a bike rack.
 
 ![aug-01-2017 12-42-27](https://user-images.githubusercontent.com/4068853/28841268-e9dfd630-76b6-11e7-961d-1d4da18e82a3.gif)
@@ -24,6 +29,10 @@ You can select the pins on the map, or use the "nearest racks" to find a bike ra
 If you want to find the nearest bike racks to a certain location within Denver, use the search bar to find that location and Brackr will re-access the nearest bike racks to your desired location.
 
 ![aug-01-2017 12-43-53](https://user-images.githubusercontent.com/4068853/28841334-1f29ef9c-76b7-11e7-9d35-070beee22c9c.gif)
+
+You can now also select the little arrow in the bottom right portion of the bike rack info window and you'll be launched into google maps:
+
+<img width="302" alt="screen shot 2017-08-04 at 9 51 44 am" src="https://user-images.githubusercontent.com/4068853/28971612-9128c330-78fa-11e7-85cd-bc66f0a3d0b3.png">
 
 If you want to add a bike rack, first you must be logged in. Then navigate to the "Add New Rack" menu option and type in a location or address closet to the new bike rack.
 
@@ -191,9 +200,7 @@ Returns the newly added Brack:
 
 ## Upcoming Features
 
-* Circumvent browsers with geolocation disabled or unavailable
 * Seed with [Denver B-Cycle Data](https://denver.bcycle.com/pages-in-top-navigation/map)
-* Add Navigation Options
 * Allow users to add comments
 * Allow users to save their favorite bike rack location
 
